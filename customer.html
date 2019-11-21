@@ -39,13 +39,16 @@
     </div>
   </nav>
 
-  <h1>Welcome to our customer service page</h1>
+  <h1>Account history</h1>
 
   <div class="result">
     <table class="table table-hover" id="result-table">
       <th>ID</th>
-      <th>Firstname</th>
-      <th>Lastname</th>
+      <th>Title</th>
+      <th>Author</th>
+      <th>Category</th>
+      <th>ISBN</th>
+      <th>FSK</th>
     </table>
   </div>
 
@@ -61,15 +64,15 @@
 <script src="js/plugins.js"></script>
 <script src="js/main.js"></script>
 
-<!--<script>
-    $.getJSON("http://localhost:8080/api/customers", function (data, status, xhr) {
+<script>
+    $.getJSON("http://localhost:8080/api/books", function (data, status, xhr) {
         console.log(data);
 
-        for (let index = 0; index < data.length; index++) {
-            const person = data[index];
-            $('#result-table').append("<tr><td>" + person.id + "</td><td>" + person.firstName + "</td><td>" + person.lastName + "</td></tr>");
+        for (let index = 0; index < data._embedded.books.length; index++) {
+            const book = data._embedded.books[index];
+            $('#result-table').append("<tr><td>" + book.id + "</td><td>" + book.title + "</td><td>" + book.authorName  + "</td><td>" + book.category + "</td><td>" + book.isbn + "</td><td>" + book.fsk + "</td></tr>");
         }
     });
-</script>-->
+</script>
 </body>
 </html>
