@@ -20,10 +20,7 @@
 </div>
 <script src="js/vendor/modernizr-3.7.1.min.js"></script>
 <script src="js/vendor/jquery-3.4.1.min.js"></script>
-<script>window.jQuery || document.write('<script src="js/vendor/jquery-3.4.1.min.js"><\/script>')</script>
-<script crossorigin="anonymous"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="js/vendor/bootstrap.bundle.js"></script>
 <script src="js/vendor/bootstrap.js"></script>
 <script src="js/plugins.js"></script>
@@ -35,7 +32,7 @@
 
         for (let index = 0; index < data.length; index++) {
             const person = data[index];
-            $('#result-table').append("<tr><td>" + person.firstName + "</td><td>" + person.lastName + "</td><td>" + person.birthday + "</td></tr>");
+            $('#result-table').append("<tr><td>" + person.firstName + "</td><td>" + person.lastName + "</td><td>" + person.id + "</td></tr>");
         }
     });
 </script>
