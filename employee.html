@@ -9,7 +9,7 @@
   <link href="css/bootstrap.css" rel="stylesheet">
   <link href="css/bootstrap-grid.css" rel="stylesheet">
   <link href="css/employee.css" rel="stylesheet">
-
+ 
 </head>
 
 <body>
@@ -57,13 +57,15 @@
         <th>ID</th>
         <th>Firstname</th>
         <th>Lastname</th>
+        <th>Email</th>
+        <th >Birthday</th>
       </table>
     </div>
 
     <hr>
 
     <div class="customer-form">
-      <form>
+      <form id="test">
         <h2 class="text-center">Create new Customer</h2>
         <div class="form-group">
           <input type="text" class="form-control" name="firstName" placeholder="Customer Firstname" required="required">
@@ -75,13 +77,25 @@
           <input type="text" class="form-control" name="email" placeholder="Customer Email" required="required">
         </div>
         <div class="form-group">
-          <input type="text" class="form-control" name="birthday" placeholder="Customer Birthday" required="required">
+          <input type="text" class="form-control" name="birthday" placeholder="Customer Birthday YYYY-MM-DD" required="required">
         </div>
         <div class="form-group">
-          <input type="button" class="btn btn-primary btn-block" onclick='submitForm()'>Add Customer</input>
+          <input type="text" class="form-control" name="pin" placeholder="Customer PIN" required="required">
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control" name="address" placeholder="Customer Address" required="required">
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control" name="creditCard" placeholder="Customer Creditcard"
+            required="required">
         </div>
       </form>
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary btn-block" onclick=objectifyForm(test)>Add new Customer</button>
+      </div>
+
     </div>
+
 
 
   </div><!-- BootStrap Container -->
@@ -94,6 +108,9 @@
   <script src="js/vendor/bootstrap.js"></script>
   <script src="js/plugins.js"></script>
   <script src="js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"
+          integrity="sha256-4iQZ6BVL4qNKlQ27TExEhBN1HFPvAvAMbFavKKosSWQ=" crossorigin="anonymous"></script>
+
 
   <script>
     $.getJSON("http://localhost:8080/api/customers", function (data, status, xhr) {
@@ -101,24 +118,49 @@
 
       for (let index = 0; index < data.length; index++) {
         const person = data[index];
-        $('#result-table').append("<tr><td>" + person.id + "</td><td>" + person.firstName + "</td><td>" + person.lastName + "</td></tr>");
+        $('#result-table').append("<tr><td>" + 
+        person.id + "</td><td>" + 
+        person.firstName + "</td><td>" + 
+        person.lastName + "</td><td>" +
+        person.email + "</td><td>" +
+        moment(person.birthday).format('DD.MM.YYYY') + "</td></tr>"
+        );
       }
     });
   </script>
 
-<script language="javascript" type="text/javascript">
-function submitForm() {
-    $.ajax({
-        method: "POST",
-        url: "http://localhost:8080/api/customers",
-        data: JSON.stringify($("form").serializeArray())
-    });
 
-console.log(JSON.stringify($("form").serializeArray()))
+  <script language="javascript" type="text/javascript">
+    function objectifyForm(formArray) {//serialize data function
 
-  }
+      var returnArray = {};
+      for (var i = 0; i < formArray.length; i++) {
+        returnArray[formArray[i]['name']] = formArray[i]['value'];
+      }
+      //return returnArray;
+      submitForm(returnArray)
+    }
+  </script>
 
-</script>
+
+
+  <script language="javascript" type="text/javascript">
+   function submitForm(formdata) {
+      return jQuery.ajax({
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        'type': 'POST',
+        'url': "http://localhost:8080/api/customers",
+        'data': JSON.stringify(formdata),
+        'dataType': 'json',
+        'success': console.log("success")
+      });
+
+    }
+
+  </script>
 
 
 </body>
