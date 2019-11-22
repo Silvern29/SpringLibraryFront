@@ -9,7 +9,7 @@
   <link href="css/bootstrap.css" rel="stylesheet">
   <link href="css/bootstrap-grid.css" rel="stylesheet">
   <link href="css/employee.css" rel="stylesheet">
- 
+
 </head>
 
 <body>
@@ -116,11 +116,12 @@
     $.getJSON("http://localhost:8080/api/customers", function (data, status, xhr) {
       console.log(data);
 
-      for (let index = 0; index < data.length; index++) {
-        const person = data[index];
-        $('#result-table').append("<tr><td>" + 
-        person.id + "</td><td>" + 
-        person.firstName + "</td><td>" + 
+      var customers = data._embedded.customers;
+      for (let index = 0; index < customers.length; index++) {
+        const person = customers[index];
+        $('#result-table').append("<tr><td>" +
+        person.id + "</td><td>" +
+        person.firstName + "</td><td>" +
         person.lastName + "</td><td>" +
         person.email + "</td><td>" +
         moment(person.birthday).format('DD.MM.YYYY') + "</td></tr>"
