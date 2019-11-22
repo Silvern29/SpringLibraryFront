@@ -61,69 +61,19 @@
       </div>
     </nav>
 
-    <h2>Collapsible Sidebar Using Bootstrap 3</h2>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    <h2>Account history</h2>
+    <h3 id="customerName"></h3>
 
-    <div class="line"></div>
-
-    <h2>Lorem Ipsum Dolor</h2>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-    <div class="line"></div>
-
-    <h2>Lorem Ipsum Dolor</h2>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-    <div class="line"></div>
-
-    <h3>Lorem Ipsum Dolor</h3>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      <div class="result">
+        <table class="table table-hover" id="result-table">
+          <th>RefNo</th>
+          <th>Book</th>
+          <th>Borrow Date</th>
+          <th>Return Date</th>
+          </table>
+      </div>
   </div>
 </div>
-<!--<div class="container"> &lt;!&ndash; BootStrap Container &ndash;&gt;-->
-<!--  <nav class="navbar navbar-expand-md bg-dark navbar-dark sticky-top">-->
-<!--    &lt;!&ndash; Brand &ndash;&gt;-->
-<!--    <a class="navbar-brand" href="login.html">-->
-<!--      <img src="img/books.png" alt="Logo" style="width:40px;">-->
-<!--      <span>Library</span>-->
-<!--    </a>-->
-
-<!--    &lt;!&ndash; Toggler/collapsibe Button &ndash;&gt;-->
-<!--    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">-->
-<!--      <span class="navbar-toggler-icon"></span>-->
-<!--    </button>-->
-
-<!--    &lt;!&ndash; Navbar links &ndash;&gt;-->
-<!--    <div class="collapse navbar-collapse" id="collapsibleNavbar">-->
-<!--      <ul class="navbar-nav">-->
-<!--        <li class="nav-item">-->
-<!--          <a class="nav-link active disabled" href="#">Account history</a>-->
-<!--        </li>-->
-<!--        <li class="nav-item">-->
-<!--          <a class="nav-link" href="borrow.html">Lend book</a>-->
-<!--        </li>-->
-<!--        <li class="nav-item">-->
-<!--          <a class="nav-link" href="return.html">Return book</a>-->
-<!--        </li>-->
-<!--      </ul>-->
-<!--    </div>-->
-<!--  </nav>-->
-
-<!--  <h1>Account history</h1>-->
-
-<!--  <div class="result">-->
-<!--    <table class="table table-hover" id="result-table">-->
-<!--      <th>ID</th>-->
-<!--      <th>Title</th>-->
-<!--      <th>Author</th>-->
-<!--      <th>Category</th>-->
-<!--      <th>ISBN</th>-->
-<!--      <th>FSK</th>-->
-<!--    </table>-->
-<!--  </div>-->
-
-<!--</div>&lt;!&ndash; BootStrap Container &ndash;&gt;-->
 
 <script src="js/vendor/modernizr-3.7.1.min.js"></script>
 <script src="js/vendor/jquery-3.4.1.min.js"></script>
@@ -132,25 +82,42 @@
         src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="js/vendor/bootstrap.bundle.js"></script>
 <script src="js/vendor/bootstrap.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@beta/dist/js.cookie.min.js"></script>
 <script src="js/plugins.js"></script>
 <script src="js/main.js"></script>
-<script type="text/javascript">
-  $(document).ready(function () {
-    $('#sidebarCollapse').on('click', function () {
-      $('#sidebar').toggleClass('active');
-      $(this).toggleClass('active');
-    });
-  });
-</script>
-<script>
-    $.getJSON("http://localhost:8080/api/histories", function (data, status, xhr) {
-        console.log(data);
 
-        // for (let index = 0; index < data._embedded.books.length; index++) {
-        //     const book = data._embedded.books[index];
-        //     $('#result-table').append("<tr><td>" + book.id + "</td><td>" + book.title + "</td><td>" + book.authorName  + "</td><td>" + book.category + "</td><td>" + book.isbn + "</td><td>" + book.fsk + "</td></tr>");
-        // }
+<script>
+    Cookies.set("custId", "177");
+    var custId = Cookies.get("custId");
+    console.log(custId)
+    $.getJSON("http://localhost:8080/api/customers/" + custId, function (custData, status, xhr) {
+        $('#customerName').append("for " + custData.firstName + " " + custData.lastName + " - CustNo: " + custData.id);
+    })
+
+    $.getJSON("http://localhost:8080/api/histories/search/findByCustomerId?id=" + custId, function (hData, status, xhr) {
+        console.log(hData);
+
+        for (let index = 0; index < hData._embedded.histories.length; index++) {
+            const history = hData._embedded.histories[index];
+            $.getJSON(hData._embedded.histories[index]._links.book.href, function (bData, status, xhr) {
+              $.getJSON(hData._embedded.histories[index]._links.customer.href, function (cData, status, xhr) {
+                  console.log(bData);
+                  console.log(cData);
+                  $('#result-table').append("<tr><td>" + history.id + "</td><td>" + bData.title + " by " + bData.authorName + "</td><td>" + history.start + "</td><td>" + (history.end === null ? "" : history.end) + "</td></tr>");
+              })
+            })
+        }
     });
 </script>
+
+<script type="text/javascript">
+$(document).ready(function () {
+$('#sidebarCollapse').on('click', function () {
+$('#sidebar').toggleClass('active');
+$(this).toggleClass('active');
+});
+});
+</script>
+
 </body>
 </html>
