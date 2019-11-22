@@ -9,7 +9,6 @@
   <link href="css/bootstrap.css" rel="stylesheet">
   <link href="css/bootstrap-grid.css" rel="stylesheet">
   <link href="css/employee.css" rel="stylesheet">
-
 </head>
 
 <body>
@@ -59,6 +58,7 @@
         <th>Lastname</th>
         <th>Email</th>
         <th >Birthday</th>
+        <th>Address</th>
       </table>
     </div>
 
@@ -110,6 +110,7 @@
   <script src="js/main.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"
           integrity="sha256-4iQZ6BVL4qNKlQ27TExEhBN1HFPvAvAMbFavKKosSWQ=" crossorigin="anonymous"></script>
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
 
   <script>
@@ -124,7 +125,8 @@
         person.firstName + "</td><td>" +
         person.lastName + "</td><td>" +
         person.email + "</td><td>" +
-        moment(person.birthday).format('DD.MM.YYYY') + "</td></tr>"
+        moment(person.birthday).format('DD.MM.YYYY') + "</td><td>" +
+        person.address + "</td></tr>"
         );
       }
     });
@@ -162,6 +164,19 @@
     }
 
   </script>
+
+<script language="javascript" type="text/javascript">
+
+$(document).on('click','#result-table tr', function(){
+alert('You clicked row '+ ($(this).index()) );
+console.log("click");
+});
+
+
+</script>
+
+
+
 
 
 </body>
