@@ -93,6 +93,8 @@
       <div class="form-group">
         <button type="submit" class="btn btn-primary" onclick="" >Update Customer</button>
         <button type="submit" class="btn btn-secondary" onclick=objectifyForm(test)>Add new Customer</button>
+        <button type="submit" class="btn btn-secondary" onclick=emtyFormOnClick() >Emty Form</button>
+        
       </div>
 
     </div>
@@ -180,8 +182,17 @@ var customerid = ($(customerrow).find("td").eq(0).html());
   $("#email").val(customerrow.find("td[id='cemail']").html());
   $("#birthday").val(customerrow.find("td[id='cbirthday']").html());
   $("#address").val(customerrow.find("td[id='caddress']").html());
-
 }
+
+function emtyFormOnClick(){
+  $("#firstName").val("");
+  $("#lastName").val("");
+  $("#email").val("");
+  $("#birthday").val("");
+  $("#address").val("");
+}
+
+
 
 </script>
 
