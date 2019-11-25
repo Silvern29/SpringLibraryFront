@@ -57,7 +57,7 @@
         <th>Firstname</th>
         <th>Lastname</th>
         <th>Email</th>
-        <th >Birthday</th>
+        <th>Birthday</th>
         <th>Address</th>
       </table>
     </div>
@@ -68,22 +68,27 @@
       <form id="test">
         <h2 class="text-center">Create new Customer</h2>
         <div class="form-group">
-          <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Customer Firstname" required="required">
+          <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Customer Firstname"
+            required="required">
         </div>
         <div class="form-group">
-          <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Customer Lastname" required="required">
+          <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Customer Lastname"
+            required="required">
         </div>
         <div class="form-group">
-          <input type="text" class="form-control" id="email" name="email" placeholder="Customer Email" required="required">
+          <input type="text" class="form-control" id="email" name="email" placeholder="Customer Email"
+            required="required">
         </div>
         <div class="form-group">
-          <input type="text" class="form-control" id="birthday" name="birthday" placeholder="Customer Birthday YYYY-MM-DD" required="required">
+          <input type="text" class="form-control" id="birthday" name="birthday"
+            placeholder="Customer Birthday YYYY-MM-DD" required="required">
         </div>
         <div class="form-group">
           <input type="text" class="form-control" name="pin" placeholder="Customer PIN" required="required">
         </div>
         <div class="form-group">
-          <input type="text" class="form-control" id = "address" name="address" placeholder="Customer Address" required="required">
+          <input type="text" class="form-control" id="address" name="address" placeholder="Customer Address"
+            required="required">
         </div>
         <!-- <div class="form-group">
           <input type="text" class="form-control" name="creditCard" placeholder="Customer Creditcard"
@@ -91,10 +96,10 @@
         </div> -->
       </form>
       <div class="form-group">
-        <button type="submit" class="btn btn-primary" onclick="" >Update Customer</button>
-        <button type="submit" class="btn btn-secondary" onclick=objectifyForm(test)>Add new Customer</button>
-        <button type="submit" class="btn btn-secondary" onclick=emtyFormOnClick() >Emty Form</button>
-        
+        <button type="submit" class="btn btn-primary" onclick="updateCustomer(test)">Update Customer</button>
+        <button type="submit" class="btn btn-secondary" onclick=addNewCustomer(test)>Add new Customer</button>
+        <button type="submit" class="btn btn-secondary" onclick=emtyFormOnClick()>Emty Form</button>
+
       </div>
 
     </div>
@@ -112,11 +117,14 @@
   <script src="js/plugins.js"></script>
   <script src="js/main.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"
-          integrity="sha256-4iQZ6BVL4qNKlQ27TExEhBN1HFPvAvAMbFavKKosSWQ=" crossorigin="anonymous"></script>
-          <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    integrity="sha256-4iQZ6BVL4qNKlQ27TExEhBN1HFPvAvAMbFavKKosSWQ=" crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
 
-  <script>
+
+  <script language="javascript" type="text/javascript">
+    var customerid;
+
     $.getJSON("http://localhost:8080/api/customers", function (data, status, xhr) {
       console.log(data);
 
@@ -124,32 +132,55 @@
       for (let index = 0; index < customers.length; index++) {
         const person = customers[index];
         $('#result-table').append("<tr><td>" +
-        person.id + "</td><td id = 'fname'>" +
-        person.firstName + "</td><td id = 'lname'>" +
-        person.lastName + "</td><td id = 'cemail'>" +
-        person.email + "</td><td id = 'cbirthday'>" +
-        moment(person.birthday).format('DD.MM.YYYY') + "</td><td id = 'caddress'>" +
-        person.address + "</td></tr>"
+          person.id + "</td><td id = 'fname'>" +
+          person.firstName + "</td><td id = 'lname'>" +
+          person.lastName + "</td><td id = 'cemail'>" +
+          person.email + "</td><td id = 'cbirthday'>" +
+          moment(person.birthday).format('DD.MM.YYYY') + "</td><td id = 'caddress'>" +
+          person.address + "</td></tr>"
         );
       }
     });
-  </script>
 
 
-  <script language="javascript" type="text/javascript">
+
+
+    function addNewCustomer(form) {
+      submitForm(objectifyForm(form))
+    }
+
     function objectifyForm(formArray) {//serialize data function
 
-      var returnArray = {};
-      for (var i = 0; i < formArray.length; i++) {
+      let returnArray = {};
+      for (let i = 0; i < formArray.length; i++) {
         returnArray[formArray[i]['name']] = formArray[i]['value'];
       }
-      //return returnArray;
-      submitForm(returnArray)
+      console.log(returnArray);
+      return returnArray;
+      //submitForm(returnArray);
     }
-  </script>
 
-  <script language="javascript" type="text/javascript">
-   function submitForm(formdata) {
+
+    function updateCustomer(formArray) {
+      let formdata = objectifyForm(formArray);
+
+      return jQuery.ajax({
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        'type': 'PATCH',
+        'url': "http://localhost:8080/api/customers/" + customerid,
+        'data': JSON.stringify(formdata),
+        'dataType': 'json',
+        'success': console.log("success update")
+      });
+
+
+    }
+
+
+    function submitForm(formdata) {
       return jQuery.ajax({
         headers: {
           'Accept': 'application/json',
@@ -159,42 +190,36 @@
         'url': "http://localhost:8080/api/customers",
         'data': JSON.stringify(formdata),
         'dataType': 'json',
-        'success': console.log("success")
+        'success': console.log("success add")
       });
 
     }
 
+    $(document).on('click', '#result-table tr', function () {
+      // get cell value by click and column index of table
+      fillFormOnClick($(this));
+    });
+
+
+    function fillFormOnClick(customerrow) {
+      customerid = ($(customerrow).find("td").eq(0).html());
+      $("#firstName").val(customerrow.find("td[id='fname']").html());
+      $("#lastName").val(customerrow.find("td[id='lname']").html());
+      $("#email").val(customerrow.find("td[id='cemail']").html());
+      $("#birthday").val(customerrow.find("td[id='cbirthday']").html());
+      $("#address").val(customerrow.find("td[id='caddress']").html());
+    }
+
+    function emtyFormOnClick() {
+      $("#firstName").val("");
+      $("#lastName").val("");
+      $("#email").val("");
+      $("#birthday").val("");
+      $("#address").val("");
+    }
+
+
   </script>
-
-<script language="javascript" type="text/javascript">
-
-
-$(document).on('click','#result-table tr', function(){
-// get cell value by click and column index of table
-fillFormOnClick($(this));
-});
-
-
-function fillFormOnClick(customerrow){
-var customerid = ($(customerrow).find("td").eq(0).html());
-  $("#firstName").val(customerrow.find("td[id='fname']").html());
-  $("#lastName").val(customerrow.find("td[id='lname']").html());
-  $("#email").val(customerrow.find("td[id='cemail']").html());
-  $("#birthday").val(customerrow.find("td[id='cbirthday']").html());
-  $("#address").val(customerrow.find("td[id='caddress']").html());
-}
-
-function emtyFormOnClick(){
-  $("#firstName").val("");
-  $("#lastName").val("");
-  $("#email").val("");
-  $("#birthday").val("");
-  $("#address").val("");
-}
-
-
-
-</script>
 
 </body>
 
