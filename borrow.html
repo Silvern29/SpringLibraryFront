@@ -62,15 +62,20 @@
     </nav>
 
     <h3 id="customerName"></h3>
-    <h2>Browse available books</h2>
+    <h2>Browse books</h2>
+
+    <select class="form-control" id="select" style="max-width: 500px; margin: 20px">
+      <option id="availableB">Available Books</option>
+      <option id="allB">All Books</option>
+    </select>
 
     <div class="result">
       <table class="table table-hover" id="result-table">
-        <th>BookNo</th>
+        <!--<th>BookNo</th>
         <th>Title</th>
         <th>Author</th>
         <th>Category</th>
-        <th>FSK</th>
+        <th>FSK</th>-->
       </table>
     </div>
   </div>
@@ -95,17 +100,34 @@
         $('#customerName').append(custData.firstName + " " + custData.lastName + " - CustNo: " + custData.id);
     })
 
-    $.getJSON("http://localhost:8080/api/books", function (bData, status, xhr) {
-        console.log(bData);
-
-        for (let index = 0; index < bData._embedded.books.length; index++) {
-            const book = bData._embedded.books[index];
-            $.getJSON(bData._embedded.books[index]._links.author.href, function (aData, status, xhr) {
-                console.log(aData);
-                $('#result-table').append("<tr><td>" + book.id + "</td><td>" + book.title + "</td><td>" + aData.firstName + " " + aData.lastName + "</td><td>" + book.category + "</td><td>" + book.fsk + "</td></tr>");
-            })
+    showResults("http://localhost:8080/api/books/search/findByBookAvailable?available=1");
+    var sel = $("#select");
+    sel.data("prev",sel.val());
+    sel.change(function(data){
+        var jqThis = $(this);
+        jqThis.data("prev",jqThis.val());
+        if(jqThis.val() === "All Books") {
+            showResults("http://localhost:8080/api/books");
+        } else {
+            showResults("http://localhost:8080/api/books/search/findByBookAvailable?available=1");
         }
     });
+
+    function showResults(query){
+      $.getJSON(query, function (bData, status, xhr) {
+          console.log(bData);
+          $('#result-table').html("<th>BookNo</th><th>Title</th><th>Author</th><th>Category</th><th>FSK</th>");
+          for (let index = 0; index < bData._embedded.books.length; index++) {
+              const book = bData._embedded.books[index];
+              // if (book.available === true) {
+                  $.getJSON(bData._embedded.books[index]._links.author.href, function (aData, status, xhr) {
+                      console.log(aData);
+                     $('#result-table').append("<tr><td>" + book.id + "</td><td>" + book.title + "</td><td>" + aData.firstName + " " + aData.lastName + "</td><td>" + book.category + "</td><td>" + book.fsk + "</td></tr>");
+                  })
+              // }
+          }
+      });
+    }
 </script>
 
 <script type="text/javascript">
