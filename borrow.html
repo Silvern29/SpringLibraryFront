@@ -7,7 +7,7 @@
   <link href="css/bootstrap-reboot.css" rel="stylesheet">
   <link href="css/bootstrap.css" rel="stylesheet">
   <link href="css/bootstrap-grid.css" rel="stylesheet">
-  <link rel="stylesheet" href="css/style5.css">
+  <link href="css/style5.css" rel="stylesheet">
 </head>
 <body>
 
@@ -32,7 +32,7 @@
     </ul>
 
     <ul class="list-unstyled CTAs">
-      <li><a href="login.html" class="article">Logout</a></li>
+      <li><a class="article" href="login.html">Logout</a></li>
     </ul>
   </nav>
 
@@ -43,7 +43,7 @@
       <div class="container-fluid">
 
         <div class="navbar-header">
-          <button type="button" id="sidebarCollapse" class="navbar-btn">
+          <button class="navbar-btn" id="sidebarCollapse" type="button">
             <span></span>
             <span></span>
             <span></span>
@@ -95,38 +95,38 @@
 <script>
     Cookies.set("custId", "177");
     var custId = Cookies.get("custId");
-    console.log(custId)
+    console.log(custId);
     $.getJSON("http://localhost:8080/api/customers/" + custId, function (custData, status, xhr) {
         $('#customerName').append(custData.firstName + " " + custData.lastName + " - CustNo: " + custData.id);
-    })
+    });
 
     showResults("http://localhost:8080/api/books/search/findByBookAvailable?available=1");
     var sel = $("#select");
-    sel.data("prev",sel.val());
-    sel.change(function(data){
+    sel.data("prev", sel.val());
+    sel.change(function (data) {
         var jqThis = $(this);
-        jqThis.data("prev",jqThis.val());
-        if(jqThis.val() === "All Books") {
+        jqThis.data("prev", jqThis.val());
+        if (jqThis.val() === "All Books") {
             showResults("http://localhost:8080/api/books");
         } else {
             showResults("http://localhost:8080/api/books/search/findByBookAvailable?available=1");
         }
     });
 
-    function showResults(query){
-      $.getJSON(query, function (bData, status, xhr) {
-          console.log(bData);
-          $('#result-table').html("<th>BookNo</th><th>Title</th><th>Author</th><th>Category</th><th>FSK</th>");
-          for (let index = 0; index < bData._embedded.books.length; index++) {
-              const book = bData._embedded.books[index];
-              // if (book.available === true) {
-                  $.getJSON(bData._embedded.books[index]._links.author.href, function (aData, status, xhr) {
-                      console.log(aData);
-                     $('#result-table').append("<tr><td>" + book.id + "</td><td>" + book.title + "</td><td>" + aData.firstName + " " + aData.lastName + "</td><td>" + book.category + "</td><td>" + book.fsk + "</td></tr>");
-                  })
-              // }
-          }
-      });
+    function showResults(query) {
+        $.getJSON(query, function (bData, status, xhr) {
+            console.log(bData);
+            $('#result-table').html("<th>BookNo</th><th>Title</th><th>Author</th><th>Category</th><th>FSK</th>");
+            for (let index = 0; index < bData._embedded.books.length; index++) {
+                const book = bData._embedded.books[index];
+                // if (book.available === true) {
+                $.getJSON(bData._embedded.books[index]._links.author.href, function (aData, status, xhr) {
+                    console.log(aData);
+                    $('#result-table').append("<tr><td>" + book.id + "</td><td>" + book.title + "</td><td>" + aData.firstName + " " + aData.lastName + "</td><td>" + book.category + "</td><td>" + book.fsk + "</td></tr>");
+                })
+                // }
+            }
+        });
     }
 </script>
 
