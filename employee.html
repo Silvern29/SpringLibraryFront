@@ -9,217 +9,253 @@
   <link href="css/bootstrap.css" rel="stylesheet">
   <link href="css/bootstrap-grid.css" rel="stylesheet">
   <link href="css/employee.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style5.css">
 </head>
 
 <body>
-
-  <div class="container">
-    <!-- BootStrap Container -->
-    <nav class="navbar navbar-expand-md bg-dark navbar-dark sticky-top">
-      <!-- Brand -->
-      <a class="navbar-brand" href="login.html">
-        <img src="img/books.png" alt="Logo" style="width:40px;">
-        <span>Library</span>
-      </a>
-
-      <!-- Toggler/collapsibe Button -->
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <!-- Navbar links -->
-      <div class="collapse navbar-collapse" id="collapsibleNavbar">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link active disabled" href="#">Account history</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="">Admin Books</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="">Admin Authors</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="">Admin Customer</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="">Admin Creditcards</a>
-          </li>
-        </ul>
+  <div class="wrapper" id="#">
+    <!-- Sidebar Holder -->
+    <nav id="sidebar">
+      <div class="sidebar-header">
+        <h3>Library</h3>
       </div>
+
+      <ul class="list-unstyled components">
+        <p>Librarian Service</p>
+        <li class="active">
+          <a href="#">Customers</a>
+        </li>
+        <li>
+          <a href="creditcard.html">Creditcards</a>
+        </li>
+        <li>
+          <a href="books.html">Books</a>
+        </li>
+        <li>
+          <a href="authors.html">Authors</a>
+        </li>
+      </ul>
+
+      <ul class="list-unstyled CTAs">
+        <li><a href="login.html" class="article">Logout</a></li>
+      </ul>
     </nav>
 
-    <h1>Welcome to our hard working employee area</h1>
+    <!-- Page Content Holder -->
+    <div id="content">
 
-    <div class="result">
-      <table class="table table-hover" id="result-table">
-        <th>ID</th>
-        <th>Firstname</th>
-        <th>Lastname</th>
-        <th>Email</th>
-        <th>Birthday</th>
-        <th>Address</th>
-      </table>
-    </div>
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
 
-    <hr>
+          <div class="navbar-header">
+            <button type="button" id="sidebarCollapse" class="navbar-btn">
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+          </div>
 
-    <div class="customer-form" id="customers">
-      <form id="test">
-        <h2 class="text-center">Create new Customer</h2>
-        <div class="form-group">
-          <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Customer Firstname"
-            required="required">
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="#">Page</a></li>
+              <li><a href="#">Page</a></li>
+              <li><a href="#">Page</a></li>
+              <li><a href="#">Page</a></li>
+            </ul>
+          </div>
         </div>
-        <div class="form-group">
-          <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Customer Lastname"
-            required="required">
-        </div>
-        <div class="form-group">
-          <input type="text" class="form-control" id="email" name="email" placeholder="Customer Email"
-            required="required">
-        </div>
-        <div class="form-group">
-          <input type="text" class="form-control" id="birthday" name="birthday"
-            placeholder="Customer Birthday YYYY-MM-DD" required="required">
-        </div>
-        <div class="form-group">
-          <input type="text" class="form-control" name="pin" placeholder="Customer PIN" required="required">
-        </div>
-        <div class="form-group">
-          <input type="text" class="form-control" id="address" name="address" placeholder="Customer Address"
-            required="required">
-        </div>
-        <!-- <div class="form-group">
+      </nav>
+
+      <h2>Account history</h2>
+      <h3 id="customerName"></h3>
+
+      <div class="result">
+        <table class="table table-hover" id="result-table">
+          <th>ID</th>
+          <th>Firstname</th>
+          <th>Lastname</th>
+          <th>Email</th>
+          <th>Birthday</th>
+          <th>Address</th>
+        </table>
+      </div>
+
+      <div class="customer-form" id="customers" style="width: 500px; margin: 0">
+        <form id="test">
+          <h2 class="text-center">Create new Customer</h2>
+          <div class="form-group">
+            <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Customer Firstname"
+              required="required">
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Customer Lastname"
+              required="required">
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" id="email" name="email" placeholder="Customer Email"
+              required="required">
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" id="birthday" name="birthday"
+              placeholder="Customer Birthday YYYY-MM-DD" required="required">
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" name="pin" placeholder="Customer PIN" required="required">
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" id="address" name="address" placeholder="Customer Address"
+              required="required">
+          </div>
+          <!-- <div class="form-group">
           <input type="text" class="form-control" name="creditCard" placeholder="Customer Creditcard"
             required="required">
         </div> -->
-      </form>
-      <div class="form-group">
-        <button type="submit" class="btn btn-primary" onclick="updateCustomer(test)">Update Customer</button>
-        <button type="submit" class="btn btn-secondary" onclick=addNewCustomer(test)>Add new Customer</button>
-        <button type="submit" class="btn btn-secondary" onclick=emtyFormOnClick()>Emty Form</button>
+        </form>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary" onclick="updateCustomerButton(test)">Update Customer</button>
+          <button type="submit" class="btn btn-secondary" onclick=addNewCustomer(test)>Add new Customer</button>
+          <button type="submit" class="btn btn-secondary" onclick=emtyFormOnClick()>Emty Form</button>
+
+        </div>
 
       </div>
 
-    </div>
+
+
+    </div><!-- BootStrap Container -->
+
+    <script src="js/vendor/modernizr-3.7.1.min.js"></script>
+    <script src="js/vendor/jquery-3.4.1.min.js"></script>
+    <script crossorigin="anonymous" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="js/vendor/bootstrap.bundle.js"></script>
+    <script src="js/vendor/bootstrap.js"></script>
+    <script src="js/plugins.js"></script>
+    <script src="js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"
+      integrity="sha256-4iQZ6BVL4qNKlQ27TExEhBN1HFPvAvAMbFavKKosSWQ=" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
 
 
-  </div><!-- BootStrap Container -->
+    <script language="javascript" type="text/javascript">
+      var customerid;
 
-  <script src="js/vendor/modernizr-3.7.1.min.js"></script>
-  <script src="js/vendor/jquery-3.4.1.min.js"></script>
-  <script crossorigin="anonymous" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-    src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-  <script src="js/vendor/bootstrap.bundle.js"></script>
-  <script src="js/vendor/bootstrap.js"></script>
-  <script src="js/plugins.js"></script>
-  <script src="js/main.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"
-    integrity="sha256-4iQZ6BVL4qNKlQ27TExEhBN1HFPvAvAMbFavKKosSWQ=" crossorigin="anonymous"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+      $.getJSON("http://localhost:8080/api/customers", function (data, status, xhr) {
+        console.log(data);
 
-
-
-  <script language="javascript" type="text/javascript">
-    var customerid;
-
-    $.getJSON("http://localhost:8080/api/customers", function (data, status, xhr) {
-      console.log(data);
-
-      var customers = data._embedded.customers;
-      for (let index = 0; index < customers.length; index++) {
-        const person = customers[index];
-        $('#result-table').append("<tr><td>" +
-          person.id + "</td><td id = 'fname'>" +
-          person.firstName + "</td><td id = 'lname'>" +
-          person.lastName + "</td><td id = 'cemail'>" +
-          person.email + "</td><td id = 'cbirthday'>" +
-          moment(person.birthday).format('DD.MM.YYYY') + "</td><td id = 'caddress'>" +
-          person.address + "</td></tr>"
-        );
-      }
-    });
-
-
-
-
-    function addNewCustomer(form) {
-      submitForm(objectifyForm(form))
-    }
-
-    function objectifyForm(formArray) {//serialize data function
-
-      let returnArray = {};
-      for (let i = 0; i < formArray.length; i++) {
-        returnArray[formArray[i]['name']] = formArray[i]['value'];
-      }
-      console.log(returnArray);
-      return returnArray;
-      //submitForm(returnArray);
-    }
-
-
-    function updateCustomer(formArray) {
-      let formdata = objectifyForm(formArray);
-
-      return jQuery.ajax({
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        'type': 'PATCH',
-        'url': "http://localhost:8080/api/customers/" + customerid,
-        'data': JSON.stringify(formdata),
-        'dataType': 'json',
-        'success': console.log("success update")
+        var customers = data._embedded.customers;
+        for (let index = 0; index < customers.length; index++) {
+          const person = customers[index];
+          $('#result-table').append("<tr><td>" +
+            person.id + "</td><td id = 'fname'>" +
+            person.firstName + "</td><td id = 'lname'>" +
+            person.lastName + "</td><td id = 'cemail'>" +
+            person.email + "</td><td id = 'cbirthday'>" +
+            moment(person.birthday).format('YYYY-MM-DD') + "</td><td id = 'caddress'>" +
+            person.address + "</td></tr>"
+          );
+        }
       });
 
 
-    }
 
 
-    function submitForm(formdata) {
-      return jQuery.ajax({
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        'type': 'POST',
-        'url': "http://localhost:8080/api/customers",
-        'data': JSON.stringify(formdata),
-        'dataType': 'json',
-        'success': console.log("success add")
+      function addNewCustomer(form) {
+        submitForm(objectifyForm(form))
+      }
+
+      function objectifyForm(formArray) {//serialize data function
+
+        let returnArray = {};
+        for (let i = 0; i < formArray.length; i++) {
+          if (formArray[i]['value'] != "") {
+            returnArray[formArray[i]['name']] = formArray[i]['value'];
+          }
+        }
+        console.log(returnArray);
+        return returnArray;
+        //submitForm(returnArray);
+      }
+
+
+      function updateCustomerButton(form) {
+        updateCustomer(objectifyForm(form));
+        updateTable();
+      }
+
+      function updateCustomer(formdata) {
+        JSON.stringify(formdata);
+
+        return jQuery.ajax({
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          'type': 'PATCH',
+          'url': "http://localhost:8080/api/customers/" + customerid,
+          'data': JSON.stringify(formdata),
+          'dataType': 'json',
+          'success': console.log("success update")
+        });
+
+      }
+
+      function updateTable() {
+        alert('Reload');
+        //$('#result').DataTable.ajax.reload(); //load(' #result')
+        location.reload();
+      }
+
+
+      function submitForm(formdata) {
+        return jQuery.ajax({
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          'type': 'POST',
+          'url': "http://localhost:8080/api/customers",
+          'data': JSON.stringify(formdata),
+          'dataType': 'json',
+          'success': console.log("success add")
+        });
+
+      }
+
+      $(document).on('click', '#result-table tr', function () {
+        // get cell value by click and column index of table
+        fillFormOnClick($(this));
       });
 
-    }
 
-    $(document).on('click', '#result-table tr', function () {
-      // get cell value by click and column index of table
-      fillFormOnClick($(this));
-    });
+      function fillFormOnClick(customerrow) {
+        customerid = ($(customerrow).find("td").eq(0).html());
+        $("#firstName").val(customerrow.find("td[id='fname']").html());
+        $("#lastName").val(customerrow.find("td[id='lname']").html());
+        $("#email").val(customerrow.find("td[id='cemail']").html());
+        $("#birthday").val(customerrow.find("td[id='cbirthday']").html());
+        $("#address").val(customerrow.find("td[id='caddress']").html());
+      }
 
-
-    function fillFormOnClick(customerrow) {
-      customerid = ($(customerrow).find("td").eq(0).html());
-      $("#firstName").val(customerrow.find("td[id='fname']").html());
-      $("#lastName").val(customerrow.find("td[id='lname']").html());
-      $("#email").val(customerrow.find("td[id='cemail']").html());
-      $("#birthday").val(customerrow.find("td[id='cbirthday']").html());
-      $("#address").val(customerrow.find("td[id='caddress']").html());
-    }
-
-    function emtyFormOnClick() {
-      $("#firstName").val("");
-      $("#lastName").val("");
-      $("#email").val("");
-      $("#birthday").val("");
-      $("#address").val("");
-    }
+      function emtyFormOnClick() {
+        $("#firstName").val("");
+        $("#lastName").val("");
+        $("#email").val("");
+        $("#birthday").val("");
+        $("#address").val("");
+      }
 
 
-  </script>
+    </script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $('#sidebarCollapse').on('click', function () {
+          $('#sidebar').toggleClass('active');
+          $(this).toggleClass('active');
+        });
+      });
+    </script>
 
 </body>
 
