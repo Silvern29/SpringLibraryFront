@@ -82,7 +82,7 @@
 
       <div class="customer-form" id="customers" style="width: 500px; margin: 0">
         <form id="test">
-          <h2 class="text-center">Create new Customer</h2>
+          <h2 class="text-center">Customer Data</h2>
           <div class="form-group">
             <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Customer Firstname"
               required="required">
@@ -112,7 +112,7 @@
         </div> -->
         </form>
         <div class="form-group">
-          <button type="submit" class="btn btn-primary" onclick="updateCustomerButton(test)">Update Customer</button>
+          <button type="button" class="btn btn-primary" onclick="updateCustomerButton(test)">Update Customer</button>
           <button type="submit" class="btn btn-secondary" onclick=addNewCustomer(test)>Add new Customer</button>
           <button type="submit" class="btn btn-secondary" onclick=emtyFormOnClick()>Emty Form</button>
 
@@ -140,9 +140,9 @@
 
     <script language="javascript" type="text/javascript">
       var customerid;
-
+      $.ajaxSetup({ cache: false });
       $.getJSON("http://localhost:8080/api/customers", function (data, status, xhr) {
-        console.log(data);
+        console.log(data._embedded.customers);
 
         var customers = data._embedded.customers;
         for (let index = 0; index < customers.length; index++) {
@@ -159,8 +159,6 @@
       });
 
 
-
-
       function addNewCustomer(form) {
         submitForm(objectifyForm(form))
       }
@@ -173,15 +171,13 @@
             returnArray[formArray[i]['name']] = formArray[i]['value'];
           }
         }
-        console.log(returnArray);
+        //console.log(returnArray);
         return returnArray;
-        //submitForm(returnArray);
       }
 
 
       function updateCustomerButton(form) {
-        updateCustomer(objectifyForm(form));
-        updateTable();
+        updateCustomer(objectifyForm(form)); 
       }
 
       function updateCustomer(formdata) {
@@ -196,13 +192,15 @@
           'url': "http://localhost:8080/api/customers/" + customerid,
           'data': JSON.stringify(formdata),
           'dataType': 'json',
-          'success': console.log("success update")
+          'success': ()=>{
+            window.location.reload();
+          }
         });
 
       }
 
       function updateTable() {
-        alert('Reload');
+        //alert('Reload');
         //$('#result').DataTable.ajax.reload(); //load(' #result')
         location.reload();
       }
