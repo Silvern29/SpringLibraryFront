@@ -21,7 +21,7 @@
     <ul class="list-unstyled components">
       <p>Customer Service</p>
       <li class="active">
-        <a href="customer.html">Customer</a>
+        <a href="customer.html">Dashboard</a>
       </li>
       <li>
         <a href="borrow.html">Borrow books</a>
@@ -64,14 +64,36 @@
     <h3 id="customerName"></h3>
     <h2>Account history</h2>
 
-      <div class="result">
-        <table class="table table-hover" id="result-table">
-          <th>RefNo</th>
-          <th>Book</th>
-          <th>Borrow Date</th>
-          <th>Return Date</th>
-          </table>
-      </div>
+    <div class="result">
+      <table class="table table-hover" id="hist-result-table">
+        <th>RefNo</th>
+        <th>Book</th>
+        <th>Borrow Date</th>
+        <th>Return Date</th>
+      </table>
+    </div>
+
+    <h2>Current books</h2>
+
+    <div class="result">
+      <table class="table table-hover" id="cur-result-table">
+        <th>RefNo</th>
+        <th>Book</th>
+        <th>Borrow Date</th>
+        <th>Return Date</th>
+      </table>
+    </div>
+
+    <h2>Available books</h2>
+
+    <div class="result">
+      <table class="table table-hover" id="av-result-table">
+        <th>RefNo</th>
+        <th>Book</th>
+        <th>Borrow Date</th>
+        <th>Return Date</th>
+      </table>
+    </div>
   </div>
 </div>
 
@@ -87,36 +109,51 @@
 <script src="js/main.js"></script>
 
 <script>
-    Cookies.set("custId", "177");
-    var custId = Cookies.get("custId");
-    console.log(custId)
-    $.getJSON("http://localhost:8080/api/customers/" + custId, function (custData, status, xhr) {
-        $('#customerName').append(custData.firstName + " " + custData.lastName + " - CustNo: " + custData.id);
-    })
+  Cookies.set("custId", "177");
+  var custId = Cookies.get("custId");
+  console.log(custId)
+  $.getJSON("http://localhost:8080/api/customers/" + custId, function (custData, status, xhr) {
+    $('#customerName').append(custData.firstName + " " + custData.lastName + " - CustNo: " + custData.id);
+  })
 
-    $.getJSON("http://localhost:8080/api/histories/search/findByCustomerId?id=" + custId, function (hData, status, xhr) {
-        console.log(hData);
+  $.getJSON("http://localhost:8080/api/histories/search/findByCustomerId?id=" + custId, function (hData, status, xhr) {
+    console.log(hData);
+    for (let index = 0; index < hData._embedded.histories.length; index++) {
+      const history = hData._embedded.histories[index];
+      $.getJSON(hData._embedded.histories[index]._links.book.href, function (bData, status, xhr) {
+        $.getJSON(hData._embedded.histories[index]._links.customer.href, function (cData, status, xhr) {
+          console.log(cData);
+          console.log(bData);
+          if(history.end!=null){
+            $('#hist-result-table').append("<tr><td>" + history.id + "</td><td>" + bData.title + " by " + bData.authorName + "</td><td>" + history.start + "</td><td>" + history.end + "</td></tr>");
+          } else {
+            $('#cur-result-table').append("<tr><td>" + history.id + "</td><td>" + bData.title + " by " + bData.authorName + "</td><td>" + history.start + "</td><td>" + (history.end === null ? "" : history.end) + "</td></tr>");
+          }
+        })
+      })
+    }
+  });
 
-        for (let index = 0; index < hData._embedded.histories.length; index++) {
-            const history = hData._embedded.histories[index];
-            $.getJSON(hData._embedded.histories[index]._links.book.href, function (bData, status, xhr) {
-              $.getJSON(hData._embedded.histories[index]._links.customer.href, function (cData, status, xhr) {
-                  console.log(bData);
-                  console.log(cData);
-                  $('#result-table').append("<tr><td>" + history.id + "</td><td>" + bData.title + " by " + bData.authorName + "</td><td>" + history.start + "</td><td>" + (history.end === null ? "" : history.end) + "</td></tr>");
-              })
-            })
-        }
-    });
+  $.getJSON("http://localhost:8080/api/books/search/findByBookAvailable?available=1", function (bData, status, xhr) {
+    console.log(bData);
+    $('#result-table').html("<th>BookNo</th><th>Title</th><th>Author</th><th>Category</th><th>FSK</th>");
+    for (let index = 0; index < bData._embedded.books.length; index++) {
+      const book = bData._embedded.books[index];
+      $.getJSON(bData._embedded.books[index]._links.author.href, function (aData, status, xhr) {
+        console.log(aData);
+        $('#av-result-table').append("<tr><td>" + book.id + "</td><td>" + book.title + "</td><td>" + aData.firstName + " " + aData.lastName + "</td><td>" + book.category + "</td><td>" + book.fsk + "</td></tr>");
+      })
+    }
+  });
 </script>
 
 <script type="text/javascript">
-    $(document).ready(function () {
-        $('#sidebarCollapse').on('click', function () {
-            $('#sidebar').toggleClass('active');
-            $(this).toggleClass('active');
-        });
+  $(document).ready(function () {
+    $('#sidebarCollapse').on('click', function () {
+      $('#sidebar').toggleClass('active');
+      $(this).toggleClass('active');
     });
+  });
 </script>
 
 </body>

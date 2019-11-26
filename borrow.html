@@ -119,12 +119,10 @@
             $('#result-table').html("<th>BookNo</th><th>Title</th><th>Author</th><th>Category</th><th>FSK</th>");
             for (let index = 0; index < bData._embedded.books.length; index++) {
                 const book = bData._embedded.books[index];
-                // if (book.available === true) {
                 $.getJSON(bData._embedded.books[index]._links.author.href, function (aData, status, xhr) {
                     console.log(aData);
                     $('#result-table').append("<tr><td>" + book.id + "</td><td>" + book.title + "</td><td>" + aData.firstName + " " + aData.lastName + "</td><td>" + book.category + "</td><td>" + book.fsk + "</td></tr>");
                 })
-                // }
             }
         });
     }
