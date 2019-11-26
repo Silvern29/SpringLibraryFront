@@ -61,8 +61,8 @@
       </div>
     </nav>
 
-    <h2>Account history</h2>
     <h3 id="customerName"></h3>
+    <h2>Account history</h2>
 
       <div class="result">
         <table class="table table-hover" id="result-table">
@@ -91,7 +91,7 @@
     var custId = Cookies.get("custId");
     console.log(custId)
     $.getJSON("http://localhost:8080/api/customers/" + custId, function (custData, status, xhr) {
-        $('#customerName').append("for " + custData.firstName + " " + custData.lastName + " - CustNo: " + custData.id);
+        $('#customerName').append(custData.firstName + " " + custData.lastName + " - CustNo: " + custData.id);
     })
 
     $.getJSON("http://localhost:8080/api/histories/search/findByCustomerId?id=" + custId, function (hData, status, xhr) {
