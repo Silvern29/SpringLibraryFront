@@ -71,12 +71,47 @@
 
     <div class="result">
       <table class="table table-hover" id="result-table">
-        <!--<th>BookNo</th>
-        <th>Title</th>
-        <th>Author</th>
-        <th>Category</th>
-        <th>FSK</th>-->
       </table>
+    </div>
+
+    <div class="customer-form" id="customers" style="width: 500px; margin: 0">
+      <form id="test">
+        <h2 class="text-center">Customer Data</h2>
+        <div class="form-group">
+          <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Customer Firstname"
+                 required="required">
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Customer Lastname"
+                 required="required">
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control" id="email" name="email" placeholder="Customer Email"
+                 required="required">
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control" id="birthday" name="birthday"
+                 placeholder="Customer Birthday YYYY-MM-DD" required="required">
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control" name="pin" placeholder="Customer PIN" required="required">
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control" id="address" name="address" placeholder="Customer Address"
+                 required="required">
+        </div>
+        <!-- <div class="form-group">
+        <input type="text" class="form-control" name="creditCard" placeholder="Customer Creditcard"
+          required="required">
+      </div> -->
+      </form>
+      <div class="form-group">
+        <button type="button" class="btn btn-primary" onclick="updateCustomerButton(test)">Update Customer</button>
+        <button type="submit" class="btn btn-secondary" onclick=addNewCustomer(test)>Add new Customer</button>
+        <button type="submit" class="btn btn-secondary" onclick=emtyFormOnClick()>Emty Form</button>
+
+      </div>
+
     </div>
   </div>
 </div>
