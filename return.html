@@ -96,17 +96,18 @@
 
     $.getJSON("http://localhost:8080/api/histories/search/findByCustomerId?id=" + custId, function (hData, status, xhr) {
         console.log(hData);
-
         for (let index = 0; index < hData._embedded.histories.length; index++) {
             const history = hData._embedded.histories[index];
-            $.getJSON(hData._embedded.histories[index]._links.book.href, function (bData, status, xhr) {
+            if(history.end === null) {
+              $.getJSON(hData._embedded.histories[index]._links.book.href, function (bData, status, xhr) {
                 $.getJSON(hData._embedded.histories[index]._links.customer.href, function (cData, status, xhr) {
-                    console.log(bData);
-                    console.log(cData);
-                    // $('#customerName').append("for " + cData.firstName + " " + cData.lastName + " Customer number: " + cData.id);
-                    $('#result-table').append("<tr><td>" + history.id + "</td><td>" + bData.title + " by " + bData.authorName + "</td><td>" + history.start + "</td><td>" + (history.end === null ? "" : history.end) + "</td></tr>");
+                  console.log(bData);
+                  console.log(cData);
+                  // $('#customerName').append("for " + cData.firstName + " " + cData.lastName + " Customer number: " + cData.id);
+                  $('#result-table').append("<tr><td>" + history.id + "</td><td>" + bData.title + " by " + bData.authorName + "</td><td>" + history.start + "</td><td>" + (history.end === null ? "" : history.end) + "</td></tr>");
                 })
-            })
+              })
+            }
         }
     });
 </script>
