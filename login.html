@@ -63,7 +63,8 @@ function checkLogin(returnArray) {
     var promise = submitForm(objectifyForm(returnArray));
     promise.then((data, status, xhr) => {
             console.log(data);
-            // TODO cook
+            // TODO cookie
+            window.location.href = "customer.html";
     }).catch((jqXhr, textStatus, errorMessage) => {
         console.log(jqXhr);
             alert(jqXhr.responseJSON.message);
